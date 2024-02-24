@@ -4,8 +4,10 @@ import {
   register,
   login,
 } from "../../../controller/doctorController.js";
+
+import authorization from "../../../controller/authorizationController.js";
 const router = express.Router();
-router.get("/", getDoctor);
+router.get("/", authorization, getDoctor);
 router.post("/register", register);
 router.post("/login", login);
 export default router;

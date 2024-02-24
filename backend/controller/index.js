@@ -28,6 +28,7 @@ export const getAdmin = async (req, res) => {
 //import secret key
 dotenv.config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
+
 export const login = async (req, res) => {
   const user = await Admin.find({ username: req.body.username });
   // console.log(user[0])
