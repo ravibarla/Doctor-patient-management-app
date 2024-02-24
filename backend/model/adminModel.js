@@ -7,6 +7,7 @@ const adminSchema = mongoose.Schema([
     password: String,
     mobile: Number,
     DOB: String,
+    userType: { type: String, default: "admin" },
   },
 ]);
 

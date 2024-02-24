@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 const patientSchema = mongoose.Schema([
   {
+    userType: { type: String, default: "patient" },
     username: String,
     password: String,
     mobile: Number,

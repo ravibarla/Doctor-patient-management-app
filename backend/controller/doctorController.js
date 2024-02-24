@@ -3,8 +3,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 export const register = (req, res) => {
-  const { username, password, mobile, dob, patients } = req.body;
+  const { username, password, mobile, dob, patients, type } = req.body;
   const newDoctor = new Doctor({
+    type,
     username,
     password,
     mobile,
@@ -29,7 +30,7 @@ export const login = async (req, res) => {
     return res.status(401).json({ error: "Invalid Credentials" });
   }
   const token = jwt.sign(
-    { id: user[0]._id, username: user[0].username },
+    { id: user[0]._id, username: user[0].username, userType: user[0].userType },
     JWT_SECRET_KEY,
     {
       expiresIn: "2h",
