@@ -30,9 +30,13 @@ export const login = async (req, res) => {
   if (user.length < 1 || !bcrypt.compare(req.body.password, user[0].password)) {
     return res.status(401).json({ error: "Invalid Credentials" });
   }
-  const token = jwt.sign({ username: user.username }, JWT_SECRET_KEY, {
-    expiresIn: "2h",
-    algorithm: "HS256",
-  });
+  const token = jwt.sign(
+    { id: user[0]._id, username: user[0].username },
+    JWT_SECRET_KEY,
+    {
+      expiresIn: "2h",
+      algorithm: "HS256",
+    }
+  );
   return res.status(200).json({ token });
 };

@@ -25,19 +25,22 @@ export const getAdmin = async (req, res) => {
   await Admin.find({}).then((user) => res.send(user));
 };
 
-
 //import secret key
 dotenv.config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 export const login = async (req, res) => {
   const user = await Admin.find({ username: req.body.username });
-
-  if (user.length<1 || ! bcrypt.compare(req.body.password, user[0].password)) {
+  // console.log(user[0])
+  if (user.length < 1 || !bcrypt.compare(req.body.password, user[0].password)) {
     return res.status(401).json({ error: "Invalid Credentials" });
   }
-  const token = jwt.sign({ username: user.username }, JWT_SECRET_KEY, {
-    expiresIn: "2h",
-    algorithm: 'HS256'
-  });
+  const token = jwt.sign(
+    { id: user[0]._id, username: user[0].username },
+    JWT_SECRET_KEY,
+    {
+      expiresIn: "2h",
+      algorithm: "HS256",
+    }
+  );
   return res.status(200).json({ token });
 };
