@@ -2,6 +2,7 @@ import { Doctor } from "../model/doctorModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { Patient } from "../model/patientModel.js";
 export const register = (req, res) => {
   const { username, password, mobile, dob, patients, type } = req.body;
   const newDoctor = new Doctor({
@@ -38,4 +39,42 @@ export const login = async (req, res) => {
     }
   );
   return res.status(200).json({ token });
+};
+
+export const getPatientRecord = async (req, res) => {
+  const { mobile, username } = req.params;
+  const patient = await Patient.find({ mobile, username });
+  const patientId = patient[0]._id;
+  if (patient) return res.status(200).json(patient);
+  return res.status(401).json({ message: "no patient found" });
+};
+
+export const updateMedicalRecord = async (req, res) => {
+  const { patientId, diagnosis, department, advice, medicines } = req.body;
+  // console.log(patientId, diagnosis, department, advice, medicines);
+  const newMedicalRecord = {
+    diagnosis,
+    department,
+    advice,
+    medicines,
+  };
+  const currentpatient = await Patient.findById(patientId);
+  // console.log(currentpatient);
+  const updatedMedicalRecord = {
+    ...currentpatient,
+    medicalRecords: { ...currentpatient.medicalRecords, newMedicalRecord },
+  };
+  // console.log(updatedMedicalRecord._doc);
+
+  Patient.findOneAndUpdate(
+    { _id: patientId },
+    { $set: newMedicalRecord },
+    { new: true }
+  )
+    .then((updatedUser) =>
+      res
+        .status(200)
+        .send({ message: "successfully updated", body: updatedUser })
+    )
+    .catch((err) => res.status(400).json("some error"));
 };
