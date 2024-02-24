@@ -1,6 +1,9 @@
 //import dependencies
 import express, { json, urlencoded } from "express";
 
+
+
+
 //import routes
 import apiRouter from "./routes/api/index.js";
 
@@ -20,3 +23,4 @@ app.use("/api", apiRouter);
 
 //set up listening app
 app.listen(port, () => console.log(`listening in the port : ${port}`));
+
