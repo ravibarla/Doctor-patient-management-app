@@ -4,7 +4,8 @@ import {
   register,
   login,
   getPatientRecord,
-  updateMedicalRecord
+  updateMedicalRecord,
+  removePatientRecord,
 } from "../../../controller/doctorController.js";
 
 import authorization, {
@@ -19,5 +20,14 @@ router.get(
   doctorAuthorization,
   getPatientRecord
 );
-router.post("/patient/updateMedicalRecord", doctorAuthorization, updateMedicalRecord);
+router.post(
+  "/patient/updateMedicalRecord",
+  doctorAuthorization,
+  updateMedicalRecord
+);
+router.delete(
+  "/patient/removeMedicalReport",
+  doctorAuthorization,
+  removePatientRecord
+);
 export default router;

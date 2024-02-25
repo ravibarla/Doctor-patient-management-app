@@ -84,3 +84,18 @@ export const updateMedicalRecord = async (req, res) => {
     )
     .catch((err) => res.status(400).json("some error"));
 };
+
+export const removePatientRecord = async (req, res) => {
+  const { patientId, medicalRecordId } = req.body;
+  // const currentPatient=await Patient.find({_id:patientId})
+  // console.log(currentPatient)
+
+  await Patient.updateOne(
+    { _id: patientId },
+    { $pull: { medicalRecords: { _id: medicalRecordId } } }
+  )
+    .then((result) =>
+      res.status(200).json({ message: `Medical record deleted:` })
+    )
+    .catch((err) => res.status(404).json({ message: `error : ${err}` }));
+};
