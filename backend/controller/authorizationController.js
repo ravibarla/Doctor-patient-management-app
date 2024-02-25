@@ -70,5 +70,4 @@ export const doctorAuthorization = (req, res, next) => {
   );
 };
 
-
 export default authorization;

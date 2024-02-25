@@ -19,5 +19,5 @@ router.get(
   doctorAuthorization,
   getPatientRecord
 );
-router.post("/patient/updateMedicalRecord", updateMedicalRecord);
+router.post("/patient/updateMedicalRecord", doctorAuthorization, updateMedicalRecord);
 export default router;

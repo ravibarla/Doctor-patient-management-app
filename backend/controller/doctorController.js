@@ -31,7 +31,12 @@ export const login = async (req, res) => {
     return res.status(401).json({ error: "Invalid Credentials" });
   }
   const token = jwt.sign(
-    { id: user[0]._id, username: user[0].username, userType: user[0].userType },
+    {
+      id: user[0]._id,
+      username: user[0].username,
+      mobile: user[0].mobile,
+      userType: user[0].userType,
+    },
     JWT_SECRET_KEY,
     {
       expiresIn: "2h",
@@ -50,26 +55,27 @@ export const getPatientRecord = async (req, res) => {
 };
 
 export const updateMedicalRecord = async (req, res) => {
+  //get doctors details
+  const { username, mobile } = req.user;
+
   const { patientId, diagnosis, department, advice, medicines } = req.body;
-  // console.log(patientId, diagnosis, department, advice, medicines);
+  const doctor = {
+    name: username,
+    mobile,
+  };
   const newMedicalRecord = {
-    diagnosis,
     department,
+    diagnosis,
     advice,
     medicines,
+    doctor,
   };
   const currentpatient = await Patient.findById(patientId);
-  // console.log(currentpatient);
-  const updatedMedicalRecord = {
-    ...currentpatient,
-    medicalRecords: { ...currentpatient.medicalRecords, newMedicalRecord },
-  };
-  // console.log(updatedMedicalRecord._doc);
 
   Patient.findOneAndUpdate(
     { _id: patientId },
-    { $set: newMedicalRecord },
-    { new: true }
+    { $push: { medicalRecords: newMedicalRecord } },
+    { new: true, upsert: true }
   )
     .then((updatedUser) =>
       res
