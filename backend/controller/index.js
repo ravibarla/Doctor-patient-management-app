@@ -34,10 +34,23 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 export const login = async (req, res) => {
   const user = await Admin.find({ username: req.body.username });
-  // console.log(user[0])
-  if (user.length < 1 || !bcrypt.compare(req.body.password, user[0].password)) {
+
+  // if (user.length < 1 && !bcrypt.compare(req.body.password, user[0].password)) {
+  //   return res.status(401).json({ error: "Invalid Credentials" });
+  // }
+  if (user.length < 1) {
     return res.status(401).json({ error: "Invalid Credentials" });
+  } else {
+    //if password is stored in hashed
+    // if (!bcrypt.compareSync(req.body.password, user[0].password)) {
+    //   return res.status(401).json({ error: "Invalid Credentials" });
+    // }
+    //if password is not stored in hashed
+    if (req.body.password !== user[0].password) {
+      return res.status(401).json({ error: "Invalid Credentials" });
+    }
   }
+
   const token = jwt.sign(
     { id: user[0]._id, username: user[0].username, userType: user[0].userType },
     JWT_SECRET_KEY,
