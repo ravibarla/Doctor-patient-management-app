@@ -1,6 +1,6 @@
 import React from "react";
-import NavBox from "./NavBox";
-import Footer from "./Footer";
+// import NavBox from "./NavBox";
+// import Footer from "./Footer";
 import Body from "./Body";
 
 export default function Home() {
@@ -9,9 +9,9 @@ export default function Home() {
   };
   return (
     <div style={styles.body}>
-      <NavBox />
+      {/* <NavBox /> */}
       <Body />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

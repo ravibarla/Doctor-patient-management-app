@@ -2,7 +2,18 @@ import React from "react";
 
 export default function Footer() {
   const styles = {
-    footer: { marginTop: "auto" },
+    footer: {
+      // marginTop: "auto",
+      marginTop: "auto",
+      backgroundColor: "#333",
+      color: "white",
+      padding: "10px",
+      textAlign: "center",
+      position: "fixed",
+      width: "100%",
+      bottom: "0",
+      height: "20vh",
+    },
   };
   return (
     <div style={styles.footer}>
@@ -14,7 +25,7 @@ export default function Footer() {
             With supporting text below as a natural lead-in to additional
             content.
           </p>
-          <a href="/#" className="btn btn-primary">
+          <a href="#" className="btn btn-primary">
             Go somewhere
           </a>
         </div>
