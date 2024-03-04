@@ -22,9 +22,17 @@ export default function Login() {
         body: JSON.stringify({ username: username, password: password }),
       })
         // .then((res) => console.log(res))
-        .then((response) => response.json())
+        .then((response) => {
+          response.json();
+          console.log(response);
+          console.log(response.ok);
+        })
         .then((data) => {
           console.log("Response from server:", data);
+          if(data==undefined)
+          {
+            console.log("hii")
+          }
           // alert("successfully logged in");
         });
     } catch (err) {
