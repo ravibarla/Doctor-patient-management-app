@@ -1,9 +1,49 @@
+#background {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100vh; /* Set the height to 100% of the viewport */
+  background-image: url(https://media.istockphoto.com/id/1354176591/photo/doctors-team.jpg?s=2048x2048&w=is&k=20&c=lMySov2Dvn5T1VW0wkREo0k68MccUxKkIA7xh8bpbME=);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+}
+#container {
+  height: "100%";
+  width: "100%";
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  /* min-width: 500px; */
+  background-color: antiquewhite;
+}
+.flex-item {
+  border: 2px solid black;
+  width: 30%;
+  height: 100%;
+}
 
-
-#container{
-    height:"100%";
-    width:"100%";
+@media screen and (max-width: 500px) {
+  #container {
     display: flex;
-    flex-direction: row;
-    align-items: stretch;
+    flex-direction: column;
+    /* align-items:start; */
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+    /* min-width: 500px; */
+    background-color: cyan;
+  }
+  .flex-item {
+    border: 2px solid black;
+    width: 100%;
+    height: 100%;
+  }
 }
