@@ -1,8 +1,7 @@
 //import dependencies
 import express, { json, urlencoded } from "express";
-
-
-
+import bodyParser from "body-parser";
+import cors from "cors";
 
 //import routes
 import apiRouter from "./routes/api/index.js";
@@ -18,9 +17,11 @@ const port = 3200;
 
 //call middleware: router
 app.use(urlencoded({ extended: true }));
+app.use(cors());
+app.use(bodyParser.json());
 app.use(express.json());
+
 app.use("/api", apiRouter);
 
 //set up listening app
 app.listen(port, () => console.log(`listening in the port : ${port}`));
-
