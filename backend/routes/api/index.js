@@ -4,8 +4,6 @@ import {
   home,
   register,
   login,
-  removeAllDoctor,
-  removeAllPatient,
 } from "../../controller/index.js";
 import doctorRouter from "./doctorRouter/doctorRouter.js";
 import patientRouter from "./PatientRouter/patientRouter.js";
@@ -17,6 +15,8 @@ import {
   getPatients,
   removeDoctor,
   removePatient,
+  removeAllDoctor,
+  removeAllPatient,
 } from "../../controller/index.js";
 const router = express.Router();
 router.use("/doctor", doctorRouter);
