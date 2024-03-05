@@ -5,6 +5,26 @@ import dotenv from "dotenv";
 dotenv.config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
+export const userInfo=(req,res)=>{
+  console.log("hii")
+  const token = req.header("Authorization");
+  if (!token) {
+    res.status(401).json({ message: "invalid token" });
+  }
+  jwt.verify(
+    token,
+    JWT_SECRET_KEY,
+    { algorithms: ["HS256"] },
+    (error, user) => {
+      if (error) {
+        return res.status(403).json({ message: "some error" });
+      }
+      console.log("user :", user);
+      res.json(user)
+    }
+  );
+}
+
 const authorization = (req, res, next) => {
   const token = req.header("Authorization");
   if (!token) {
@@ -18,6 +38,7 @@ const authorization = (req, res, next) => {
       if (error) {
         return res.status(403).json({ message: "some error" });
       }
+      console.log("user :", user);
       req.user = user;
       next();
     }

@@ -1,14 +1,10 @@
 import express from "express";
-import {
-  getAdmin,
-  home,
-  register,
-  login,
-} from "../../controller/index.js";
+import { getAdmin, home, register, login } from "../../controller/index.js";
 import doctorRouter from "./doctorRouter/doctorRouter.js";
 import patientRouter from "./PatientRouter/patientRouter.js";
 import authorization, {
   adminAuthorization,
+  userInfo,
 } from "../../controller/authorizationController.js";
 import {
   getDoctors,
@@ -23,6 +19,7 @@ router.use("/doctor", doctorRouter);
 router.use("/patient", patientRouter);
 router.post("/register", register);
 router.get("/get", authorization, getAdmin);
+router.get("/user-info", userInfo);
 router.get("/getDoctors", authorization, getDoctors);
 router.get("/getPatients", authorization, getPatients);
 router.delete(
